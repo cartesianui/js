@@ -1,0 +1,15 @@
+{
+  "name": "@aphtab/zeroconfig",
+  "version": "1.0.0",
+  "description": "Basic Configurations for Web Project",
+  "license": "MIT",
+  "main": "abp.js",
+  "types":"abp.d.ts",
+  "keywords": [
+    "zeroConfigurations",
+    "npm",
+    "package",
+    "aphtab"
+  ]
+
+}
