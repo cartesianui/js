@@ -1,15 +1,26 @@
 {
   "name": "@aphtab/zeroconfig",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Basic Configurations for Web Project",
   "license": "MIT",
   "main": "abp.js",
-  "types":"abp.d.ts",
+  "types": "abp.d.ts",
   "keywords": [
     "zeroConfigurations",
     "npm",
     "package",
     "aphtab"
-  ]
-
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aaftab-khan/ZeroConfig.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/Aaftab-khan/ZeroConfig/issues"
+  },
+  "homepage": "https://github.com/Aaftab-khan/ZeroConfig#readme"
 }
