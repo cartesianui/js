@@ -1,4 +1,4 @@
-﻿declare namespace abp {
+﻿declare namespace axis {
 
     let appPath: string;
 
