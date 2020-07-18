@@ -1,6 +1,6 @@
-var axis = window.axis || {};
-axis.event = (function () {
-
+(function () {
+  var axis = window.axis || {};
+  axis.event = (function () {
     var _callbacks = {};
 
     var on = function (eventName, callback) {
@@ -49,6 +49,7 @@ axis.event = (function () {
     return {
       on: on,
       off: off,
-      trigger: trigger
+      trigger: trigger,
     };
   })();
+})();
