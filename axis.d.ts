@@ -28,7 +28,7 @@
 
     }
 
-    interface IAbpSession {
+    interface IAxisSession {
 
         readonly userId?: number;
 
@@ -42,7 +42,7 @@
 
     }
 
-    let session: IAbpSession;
+    let session: IAxisSession;
 
     namespace localization {
 
@@ -78,7 +78,7 @@
 
         let values: { [key: string]: string };
 
-        let abpWeb: (key: string) => string;
+        let axisWeb: (key: string) => string;
 
         function localize(key: string, sourceName: string): string;
 
@@ -369,7 +369,7 @@
 
         /**
         * Sets a cookie value for given key.
-        * This is a simple implementation created to be used by ABP.
+        * This is a simple implementation created to be used by Axis.
         * Please use a complete cookie library if you need.
         * @param {string} key
         * @param {string} value
@@ -380,7 +380,7 @@
 
         /**
         * Gets a cookie with given key.
-        * This is a simple implementation created to be used by ABP.
+        * This is a simple implementation created to be used by Axis.
         * Please use a complete cookie library if you need.
         * @param {string} key
         * @returns {string} Cookie value or null
@@ -389,7 +389,7 @@
 
         /**
          * Deletes cookie for given key.
-         * This is a simple implementation created to be used by ABP.
+         * This is a simple implementation created to be used by Axis.
          * Please use a complete cookie library if you need.
          * @param {string} key
          * @param {string} path (optional)
