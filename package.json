@@ -1,7 +1,7 @@
 {
   "name": "@orendalabs/js-axis",
-  "version": "0.0.0",
-  "description": "Basic Configurations for Web Project",
+  "version": "1.0.0",
+  "description": "Serve as x-axis for cartesian-ui project.",
   "license": "MIT",
   "main": "axis.js",
   "types": "axis.d.ts",
@@ -9,14 +9,23 @@
     "js axis",
     "npm",
     "package",
-    "aphtab"
+    "js-axis",
+    "cartesian-ui",
+    "component"
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Syed Ali Murtaza Kazmi <ali@kazmi.me>",
+  "contributors": [
+    {
+      "name" : "Aftab Khan",
+      "url" : "https://github.com/Aaftab-khan/"
+    }
+  ],
   "bugs": {
-    "url": "https://github.com/orendalabs/js-axis/issues"
+    "url": "https://github.com/orendalabs/js-axis/issues",
+    "email": "support@orendalabs.net"
   },
   "homepage": "https://github.com/orendalabs/js-axis#readme",
   "dependencies": {},
