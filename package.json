@@ -19,8 +19,8 @@
   "author": "Syed Ali Murtaza Kazmi <ali@kazmi.me>",
   "contributors": [
     {
-      "name" : "Aftab Khan",
-      "url" : "https://github.com/Aaftab-khan/"
+      "name": "Aftab Khan",
+      "url": "https://github.com/Aaftab-khan/"
     }
   ],
   "bugs": {
@@ -36,9 +36,9 @@
     "gulp-jshint": "^2.1.0",
     "gulp-minify": "^3.1.0",
     "gulp-order": "^1.2.0",
+    "gulp-rename": "^2.0.0",
     "gulp-sequence": "^1.0.0",
     "gulp-uglify": "^3.0.2",
-    "gulp-rename": "^2.0.0",
     "jshint": "^2.11.1"
   }
 }

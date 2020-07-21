@@ -5,6 +5,7 @@ var uglify = require("gulp-uglify");
 var minify = require("gulp-minify");
 var order = require("gulp-order");
 var jshint = require("gulp-jshint");
+var rename = require("gulp-rename");
 
 gulp.task("build", build);
 
@@ -32,12 +33,13 @@ function build(done) {
         "src/scripts/axis.security.js",
         // Libs
         "src/libs/freeze-ui/freeze-ui.js",
-        "src/extensions/axis.freeze-ui.js",
         // Extensions
+        "src/extensions/axis.freeze-ui.js",
         "src/extensions/axis.sweet-alert.js",
+        "src/extensions/abp.moment.js",
       ])
     )
-    .pipe(concat("axis.min.js"))
+    .pipe(concat("axis.js"))
     .pipe(gulp.dest("./"));
 
   if (done) done();
@@ -48,8 +50,9 @@ gulp.task("compress", compress);
 function compress(done) {
   gulp
     .src(["./axis.js"])
-    .pipe(minify())
-    .pipe(gulp.dest("./"));
+    .pipe(uglify())
+    .pipe(rename({ suffix: ".min" }))
+    .pipe(gulp.dest("."));
 
   if (done) done();
 }
