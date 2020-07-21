@@ -1,11 +1,17 @@
-var gulp = require("gulp");
-var concat = require("gulp-concat");
-var gulpSequence = require("gulp-sequence");
-var uglify = require("gulp-uglify");
-var minify = require("gulp-minify");
-var order = require("gulp-order");
-var jshint = require("gulp-jshint");
-var rename = require("gulp-rename");
+let gulp = require("gulp");
+let concat = require("gulp-concat");
+let gulpSequence = require("gulp-sequence");
+let uglify = require("gulp-uglify");
+let minify = require("gulp-minify");
+let order = require("gulp-order");
+let jshint = require("gulp-jshint");
+let rename = require("gulp-rename");
+let print = require("gulp-print").default;
+
+gulp.task("print", (done) => {
+  gulp.src("src/scripts/*.js").pipe(print((filepath) => `built: ${filepath}`));
+  if (done) done();
+});
 
 gulp.task("build", build);
 
@@ -37,7 +43,7 @@ function build(done) {
         "src/extensions/axis.freeze-ui.js",
         "src/extensions/axis.sweet-alert.js",
         "src/extensions/abp.moment.js",
-      ])
+      ], { base: './' })
     )
     .pipe(concat("axis.js"))
     .pipe(gulp.dest("./"));
