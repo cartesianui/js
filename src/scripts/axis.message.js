@@ -1,7 +1,7 @@
+var axis = axis || {};
 (function (define) {
   define(["jquery"], function ($) {
-    var axis = window.axis || {};
-    //Defines Message API, not implements it
+
     axis.message = axis.message || {};
 
     var showMessage = function (message, title, options) {
@@ -56,6 +56,8 @@
         $dfd.resolve();
       });
     };
+
+    return axis;
   });
 })(
   typeof define === "function" && define.amd

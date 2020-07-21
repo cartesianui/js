@@ -1,5 +1,5 @@
+var axis = axis || {};
 (function () {
-  var axis = window.axis || {};
   axis.event = (function () {
     var _callbacks = {};
 

@@ -1,6 +1,6 @@
 {
   "name": "@cartesian-ui/js-axis",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Serve as x-axis for cartesian-ui project.",
   "license": "MIT",
   "main": "axis.js",
@@ -24,10 +24,10 @@
     }
   ],
   "bugs": {
-    "url": "https://github.com/orendalabs/js-axis/issues",
+    "url": "https://github.com/orendalabs/cartesian-js-axis/issues",
     "email": "support@orendalabs.net"
   },
-  "homepage": "https://github.com/orendalabs/js-axis#readme",
+  "homepage": "https://github.com/orendalabs/cartesian-js-axis#readme",
   "dependencies": {},
   "devDependencies": {
     "gulp": "^4.0.2",

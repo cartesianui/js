@@ -1,5 +1,5 @@
+var axis = axis || {};
 (function () {
-  var axis = window.axis || {};
   axis.clock = axis.clock || {};
 
   axis.clock.now = function () {

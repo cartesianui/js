@@ -1,5 +1,5 @@
+var axis = axis || {};
 (function () {
-  var axis = window.axis || {};
   axis.security = axis.security || {};
   axis.security.antiForgery = axis.security.antiForgery || {};
 

@@ -1,5 +1,5 @@
+var axis = axis || {};
 (function () {
-  var axis = window.axis || {};
   axis.timing = axis.timing || {};
 
   axis.timing.utcClockProvider = (function () {

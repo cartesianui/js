@@ -1,6 +1,5 @@
+var axis = axis || {};
 (function () {
-  var axis = window.axis || {};
-  //Implements Logging API that provides secure & controlled usage of console.log
   axis.log = axis.log || {};
 
   axis.log.levels = {

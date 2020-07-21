@@ -1,7 +1,10 @@
+var axis = axis || {};
 (function (define) {
   define(["jquery"], function ($) {
-    var axis = window.axis || {};
     //Defines Notification API, not implements it
+
+    console.log(axis);
+
     axis.notifications = axis.notifications || {};
 
     axis.notifications.severity = {
@@ -156,6 +159,8 @@
     axis.notify.error = function (message, title, options) {
       axis.log.warn("axis.notify.error is not implemented!");
     };
+
+    return axis;
   });
 })(
   typeof define === "function" && define.amd

@@ -1,6 +1,5 @@
+var axis = axis || {};
 (function () {
-  var axis = window.axis || {};
-
   //Current application root path (including virtual directory if exists).
   axis.appPath = axis.appPath || "/";
   axis.pageLoadTime = new Date();

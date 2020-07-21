@@ -1,5 +1,5 @@
+var axis = axis || {};
 (function () {
-  var axis = window.axis || {};
   axis.multiTenancy = axis.multiTenancy || {};
 
   axis.multiTenancy.isEnabled = false;

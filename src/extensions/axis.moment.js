@@ -1,19 +1,20 @@
 ﻿var axis = axis || {};
 (function () {
-    if (!moment || !moment.tz) {
-        return;
-    }
+  if (!moment || !moment.tz) {
+    return;
+  }
 
-    /* DEFAULTS *************************************************/
+  /* DEFAULTS *************************************************/
 
-    axis.timing = axis.timing || {};
+  axis.timing = axis.timing || {};
 
-    /* FUNCTIONS **************************************************/
+  /* FUNCTIONS **************************************************/
 
-    axis.timing.convertToUserTimezone = function (date) {
-        var momentDate = moment(date);
-        var targetDate = momentDate.clone().tz(axis.timing.timeZoneInfo.iana.timeZoneId);
-        return targetDate;
-    };
-
+  axis.timing.convertToUserTimezone = function (date) {
+    var momentDate = moment(date);
+    var targetDate = momentDate
+      .clone()
+      .tz(axis.timing.timeZoneInfo.iana.timeZoneId);
+    return targetDate;
+  };
 })();

@@ -1,6 +1,6 @@
+var axis = axis || {};
 (function (define) {
   define(["jquery"], function ($) {
-    var axis = window.axis || {};
     axis.utils = axis.utils || {};
 
     /* Creates a name namespace.
@@ -278,6 +278,8 @@
       var matches = domainRegex.exec(url);
       return matches && matches[2] ? matches[2] : "";
     };
+
+    return axis;
   });
 })(
   typeof define === "function" && define.amd
