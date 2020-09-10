@@ -2,9 +2,6 @@ var axis = axis || {};
 (function (define) {
   define(["jquery"], function ($) {
     //Defines Notification API, not implements it
-
-    console.log(axis);
-
     axis.notifications = axis.notifications || {};
 
     axis.notifications.severity = {

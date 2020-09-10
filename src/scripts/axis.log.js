@@ -20,8 +20,6 @@ var axis = axis || {};
     if (logLevel != undefined && logLevel < axis.log.level) {
       return;
     }
-
-    console.log(logObject);
   };
 
   axis.log.debug = function (logObject) {
