@@ -2,6 +2,7 @@ var axis = axis || {};
 (function (define) {
   define(["jquery"], function ($) {
 
+    // Messages API - Defines Messages API, not implements it
     axis.message = axis.message || {};
 
     var showMessage = function (message, title, options) {

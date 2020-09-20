@@ -61,8 +61,7 @@ var axis = axis || {};
       return toLocal(date);
     };
 
-    // Public interface ///////////////////////////////////////////////////
-
+    // Public interface
     return {
       now: now,
       normalize: normalize,
@@ -79,8 +78,7 @@ var axis = axis || {};
       return date;
     };
 
-    // Public interface ///////////////////////////////////////////////////
-
+    // Public interface
     return {
       now: now,
       normalize: normalize,

@@ -1,43 +1,47 @@
 // taken from https://raw.githubusercontent.com/alexradulescu/FreezeUI and modified
-(() => {
-  let freezeHtml = document.createElement("div");
+(function () {
+  var freezeHtml = document.createElement("div");
   freezeHtml.classList.add("freeze-ui");
 
-  let freezedItems = [];
+  freezedItems = [];
 
-  let getSelector = (selector) => (selector ? selector : "body");
+  getSelector = function(selector) {
+    return selector ? selector : "body";
+  }
 
-  let normalizeFreezeDelay = (delay) => (delay ? delay : 250);
+  normalizeFreezeDelay = function(delay) {
+    return delay ? delay : 250;
+  }
 
-  let shouldFreezeItem = (selector) => {
-    let itemSelector = getSelector(selector);
+  shouldFreezeItem = function (selector) {
+    itemSelector = getSelector(selector);
     return freezedItems.indexOf(itemSelector) >= 0;
   };
 
-  let addFreezedItem = (selector) => {
-    let itemSelector = getSelector(selector);
+  addFreezedItem = function(selector) {
+    itemSelector = getSelector(selector);
     freezedItems.push(itemSelector);
   };
 
-  let removeFreezedItem = (selector) => {
-    let itemSelector = getSelector(selector);
-    for (let i = 0; i < freezedItems.length; i++) {
+  removeFreezedItem = function(selector) {
+    itemSelector = getSelector(selector);
+    for (i = 0; i < freezedItems.length; i++) {
       if (freezedItems[i] === itemSelector) {
         freezedItems.splice(i, 1);
       }
     }
   };
 
-  window.FreezeUI = (options = {}) => {
+  window.FreezeUI = function(options) {
     addFreezedItem(options.selector);
-    const delay = normalizeFreezeDelay(options.delay);
+    delay = normalizeFreezeDelay(options.delay);
 
-    setTimeout(() => {
+    setTimeout(function(){
       if (!shouldFreezeItem(options.selector)) {
         return;
       }
 
-      let parent;
+      var parent;
       if (options.element) {
         parent = options.element;
       } else {
@@ -54,12 +58,12 @@
     }, delay);
   };
 
-  window.UnFreezeUI = (options = {}) => {
+  window.UnFreezeUI = function(options) {
     removeFreezedItem(options.selector);
-    const delay = normalizeFreezeDelay(options.delay) + 250;
+    delay = normalizeFreezeDelay(options.delay) + 250;
 
-    setTimeout(() => {
-      let freezeHtml;
+    setTimeout(function() {
+      var freezeHtml;
       if (options.element) {
         freezeHtml = options.element.querySelector(".freeze-ui");
       } else {

@@ -28,22 +28,6 @@
 
     }
 
-    interface IAxisSession {
-
-        readonly userId?: number;
-
-        readonly tenantId?: number;
-
-        readonly impersonatorUserId?: number;
-
-        readonly impersonatorTenantId?: number;
-
-        readonly multiTenancySide: multiTenancy.sides;
-
-    }
-
-    let session: IAxisSession;
-
     namespace localization {
 
         interface ILanguageInfo {

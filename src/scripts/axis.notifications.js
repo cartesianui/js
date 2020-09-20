@@ -1,7 +1,7 @@
 var axis = axis || {};
 (function (define) {
   define(["jquery"], function ($) {
-    //Defines Notification API, not implements it
+    // Notification - Defines Notification API, not implements it
     axis.notifications = axis.notifications || {};
 
     axis.notifications.severity = {
@@ -136,9 +136,7 @@ var axis = axis || {};
       uiNotifyFunc(message, undefined, options);
     };
 
-    /* NOTIFICATION *********************************************/
-    //Defines Notification API, not implements it
-
+    // Notify - Defines Notification API, not implements it
     axis.notify = axis.notify || {};
 
     axis.notify.success = function (message, title, options) {

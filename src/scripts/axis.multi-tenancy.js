@@ -37,10 +37,4 @@ var axis = axis || {};
 
     return parseInt(value);
   };
-
-  /* SESSION */
-
-  axis.session = axis.session || {
-    multiTenancySide: axis.multiTenancy.sides.HOST,
-  };
 })();
