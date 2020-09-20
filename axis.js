@@ -531,11 +531,11 @@ var axis = axis || {};
   };
 
   // UI BUSY - Defines UI Busy API, not implements it
-  axis.ui.setBusy = function (elm, optionsOrPromise) {
+  axis.ui.setBusy = function (elm, text, delay) {
     axis.log.warn("axis.ui.setBusy is not implemented!");
   };
 
-  axis.ui.clearBusy = function (elm) {
+  axis.ui.clearBusy = function (elm, delay) {
     axis.log.warn("axis.ui.clearBusy is not implemented!");
   };
 })();
