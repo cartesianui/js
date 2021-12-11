@@ -3,6 +3,7 @@ var axis = axis || {};
   axis.multiTenancy = axis.multiTenancy || {};
 
   axis.multiTenancy.isEnabled = false;
+  axis.multiTenancy.hostAttribute = 'Axis-Host';
   axis.multiTenancy.ignoreFeatureCheckForHostUsers = false;
 
   axis.multiTenancy.sides = {

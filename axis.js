@@ -5,6 +5,7 @@ var axis = axis || {};
   axis.multiTenancy = axis.multiTenancy || {};
 
   axis.multiTenancy.isEnabled = false;
+  axis.multiTenancy.hostAttribute = 'Axis-Host';
   axis.multiTenancy.ignoreFeatureCheckForHostUsers = false;
 
   axis.multiTenancy.sides = {
@@ -984,7 +985,7 @@ var axis = axis || {};
     var utcTime = localTime + date.getTimezoneOffset() * 60000;
     var targetTime =
       parseInt(utcTime) +
-      parseInt(axis.timing.timeZoneInfo.windows.currentUtcOffsetInMilliseconds);
+      parseInt(axis.timing.timeZoneInfo.server.currentUtcOffsetInMilliseconds);
     return new Date(targetTime);
   };
 })();

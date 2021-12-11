@@ -22,6 +22,22 @@
     function getTenantIdCookie(): string;
   }
 
+  interface ISession {
+
+    readonly userId?: number;
+
+    readonly tenantId?: number;
+
+    readonly impersonatorUserId?: number;
+
+    readonly impersonatorTenantId?: number;
+
+    readonly multiTenancySide: multiTenancy.sides;
+
+  }
+
+  let session: ISession;
+
   namespace localization {
     interface ILanguageInfo {
       name: string;
@@ -352,13 +368,17 @@
     }
 
     interface ITimeZoneInfo {
-      windows: {
+
+      // TODO: Get rid of this, we need to replace this,
+      //  as this return data from API from windows machine
+      server: {
         timeZoneId: string;
         baseUtcOffsetInMilliseconds: number;
         currentUtcOffsetInMilliseconds: number;
         isDaylightSavingTimeNow: boolean;
       };
 
+      // We need to use below, and return IANA based timeZoneId
       iana: {
         timeZoneId: string;
       };

@@ -91,7 +91,7 @@ var axis = axis || {};
     var utcTime = localTime + date.getTimezoneOffset() * 60000;
     var targetTime =
       parseInt(utcTime) +
-      parseInt(axis.timing.timeZoneInfo.windows.currentUtcOffsetInMilliseconds);
+      parseInt(axis.timing.timeZoneInfo.server.currentUtcOffsetInMilliseconds);
     return new Date(targetTime);
   };
 })();
