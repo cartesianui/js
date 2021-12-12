@@ -5,7 +5,7 @@
 
   function toAbsAppPath(path: string): string;
 
-  namespace multiTenancy {
+  namespace tenancy {
     enum sides {
       TENANT = 1,
       HOST = 2,
@@ -32,7 +32,7 @@
 
     readonly impersonatorTenantId?: number;
 
-    readonly multiTenancySide: multiTenancy.sides;
+    readonly tenancySide: tenancy.sides;
 
   }
 
