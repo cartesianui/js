@@ -18,9 +18,9 @@ gulp.task("print", (done) => {
   if (done) done();
 });
 
-gulp.task("concat", concatTack);
+gulp.task("concat", concatTask);
 
-function concatTack(done) {
+function concatTask(done) {
   gulp
     .src("src/scripts/*.js")
     .pipe(jshint())
@@ -32,7 +32,7 @@ function concatTack(done) {
           // Scripts
           "src/scripts/axis.js",
           "src/scripts/axis.path.js",
-          "src/scripts/axis.multi-tenancy.js",
+          "src/scripts/axis.tenancy.js",
           "src/scripts/axis.localization.js",
           "src/scripts/axis.auth.js",
           "src/scripts/axis.features.js",
@@ -56,9 +56,9 @@ function concatTack(done) {
   if (done) done();
 }
 
-gulp.task("compress", compressTack);
+gulp.task("compress", compressTask);
 
-function compressTack(done) {
+function compressTask(done) {
   gulp
     .src([
       "./axis.js",

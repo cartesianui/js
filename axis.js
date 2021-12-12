@@ -2,23 +2,23 @@ var axis = {};
 
 var axis = axis || {};
 (function () {
-  axis.multiTenancy = axis.multiTenancy || {};
+  axis.tenancy = axis.tenancy || {};
 
-  axis.multiTenancy.isEnabled = false;
-  axis.multiTenancy.hostAttribute = 'Axis-Host';
-  axis.multiTenancy.ignoreFeatureCheckForHostUsers = false;
+  axis.tenancy.isEnabled = false;
+  axis.tenancy.hostAttribute = 'Axis-Host';
+  axis.tenancy.ignoreFeatureCheckForHostUsers = false;
 
-  axis.multiTenancy.sides = {
+  axis.tenancy.sides = {
     TENANT: 1,
     HOST: 2,
   };
 
-  axis.multiTenancy.tenantIdCookieName = "Axis.TenantId";
+  axis.tenancy.tenantIdCookieName = "Axis.TenantId";
 
-  axis.multiTenancy.setTenantIdCookie = function (tenantId) {
+  axis.tenancy.setTenantIdCookie = function (tenantId) {
     if (tenantId) {
       axis.utils.setCookieValue(
-        axis.multiTenancy.tenantIdCookieName,
+        axis.tenancy.tenantIdCookieName,
         tenantId.toString(),
         new Date(new Date().getTime() + 5 * 365 * 86400000), //5 years
         axis.appPath,
@@ -26,14 +26,14 @@ var axis = axis || {};
       );
     } else {
       axis.utils.deleteCookie(
-        axis.multiTenancy.tenantIdCookieName,
+        axis.tenancy.tenantIdCookieName,
         axis.appPath
       );
     }
   };
 
-  axis.multiTenancy.getTenantIdCookie = function () {
-    var value = axis.utils.getCookieValue(axis.multiTenancy.tenantIdCookieName);
+  axis.tenancy.getTenantIdCookie = function () {
+    var value = axis.utils.getCookieValue(axis.tenancy.tenantIdCookieName);
     if (!value) {
       return null;
     }
