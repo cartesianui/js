@@ -3,7 +3,7 @@ var axis = axis || {};
   axis.tenancy = axis.tenancy || {};
 
   axis.tenancy.isEnabled = false;
-  axis.tenancy.hostAttribute = 'Axis-Host';
+  axis.tenancy.headerAttribute = 'Axis-Host';
   axis.tenancy.ignoreFeatureCheckForHostUsers = false;
 
   axis.tenancy.sides = {
