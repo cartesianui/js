@@ -24,8 +24,8 @@ var axis = axis || {};
 
   axis.auth.isGranted = function (permissionName) {
     return (
-      axis.auth.allPermissions[permissionName] != undefined &&
-      axis.auth.grantedPermissions[permissionName] != undefined
+        (axis.auth.allPermissions[permissionName] !== undefined && axis.auth.grantedPermissions[permissionName] !== undefined ) ||
+        (axis.auth.allPermissions.indexOf(permissionName) !== -1 && axis.auth.grantedPermissions.indexOf(permissionName) !== -1)
     );
   };
 
