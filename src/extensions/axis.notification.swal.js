@@ -7,28 +7,36 @@ var axis = axis || {};
     // Notification API Implementation using Sweet Alert
     var Toast = Swal.mixin({
         toast: true,
-        position: "top-end",
+        position: "bottom-end",
         showConfirmButton: false,
-        timer: 3000,
+        timer: 2000,
         timerProgressBar: true,
-        onOpen: function(toast) {
+        didOpen: function(toast) {
             toast.addEventListener("mouseenter", Swal.stopTimer);
             toast.addEventListener("mouseleave", Swal.resumeTimer);
         }
     });
 
     var showNotification = function (type, message, title, options) {
-        var icon = options.customClass.icon
+
+        var _icon, _title, _html;
+
+        _icon = options.customClass.icon
             ? "<i class=\"mr-2 text-light " + options.customClass.icon + "\"></i>"
+            : false;
+
+        _title = _icon ? _icon : "";
+        _title += title ? "<span class=\"text-light\">" + title + "</span>" : "";
+
+        _html = message
+            ? "<span class=\"text-light\">" + message + "</span>"
             : "";
 
-        if (title) {
-            options.title = icon + "<span class=\"text-light\">" + title + "</span>";
+        if(_icon == false) {
+            options.icon  = type.includes(['warning', 'error', 'success', 'info', 'question']) ? type : "";
         }
-
-        options.html = title
-            ? ""
-            : icon + "<span class=\"text-light\">" + message + "</span>";
+        options.title = _title;
+        options.html = _html;
 
         Toast.fire(options);
     };
