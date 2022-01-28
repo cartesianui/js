@@ -1,6 +1,6 @@
 {
-  "name": "@cartesian-ui/js-axis",
-  "version": "2.3.2",
+  "name": "@cartesianui/js-axis",
+  "version": "1.0.0",
   "description": "Serve as x-axis for cartesian-ui project.",
   "license": "MIT",
   "main": "axis.js",
@@ -20,15 +20,20 @@
   "author": "Syed Ali Murtaza Kazmi <ali@kazmi.me>",
   "contributors": [
     {
+      "name": "Ali Kazmi",
+      "email": "ali@kazmi.me",
+      "url": "https://github.com/smurtazakazmi/"
+    },
+    {
       "name": "Aftab Khan",
       "url": "https://github.com/Aaftab-khan/"
     }
   ],
   "bugs": {
-    "url": "https://github.com/orendalabs/cartesian-js-axis/issues",
+    "url": "https://github.com/cartesianui/js-axis/issues",
     "email": "support@orendalabs.net"
   },
-  "homepage": "https://github.com/orendalabs/cartesian-js-axis#readme",
+  "homepage": "https://github.com/cartesianui/js-axis#readme",
   "dependencies": {},
   "devDependencies": {
     "gulp": "^4.0.2",
