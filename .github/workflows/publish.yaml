@@ -1,8 +1,6 @@
 name: publish
 
 on:
-  push:
-    branches: main
   pull_request:
     branches: main
   release:
@@ -16,11 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
-          with:
-            node-version: 16
-            registry-url: https://registry.npmjs.org/
+        with:
+          node-version: 16
+          registry-url: https://registry.npmjs.org/
       - run: npm install
-      - run: npm install
+      - run: npm build-and-publish
       - run: npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_ACCESS_TOKEN}}
