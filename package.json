@@ -1,7 +1,7 @@
 {
   "name": "@cartesianui/js",
-  "version": "1.0.0",
-  "description": "Serve as x-axis for CartesianUI project.",
+  "version": "0.1.0",
+  "description": "Serves as x-axis for CartesianUI project.",
   "license": "MIT",
   "main": "axis.js",
   "types": "axis.d.ts",
@@ -23,17 +23,13 @@
       "name": "Ali Kazmi",
       "email": "ali@kazmi.me",
       "url": "https://github.com/smurtazakazmi/"
-    },
-    {
-      "name": "Aftab Khan",
-      "url": "https://github.com/Aaftab-khan/"
     }
   ],
   "bugs": {
-    "url": "https://github.com/cartesianui/js-axis/issues",
-    "email": "support@orendalabs.net"
+    "url": "https://github.com/cartesianui/js/issues",
+    "email": "support@cartesianui.com"
   },
-  "homepage": "https://github.com/cartesianui/js-axis#readme",
+  "homepage": "https://github.com/cartesianui/js#readme",
   "dependencies": {},
   "devDependencies": {
     "gulp": "^4.0.2",

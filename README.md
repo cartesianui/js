@@ -1,5 +1,6 @@
-### JS-AXIS 
-##### _X-Axis for Cartesian UI_
+### @cartesianui/js
+
+##### _Serves as x-axis for CartesianUI_
  
  This package includes below modules.
 
