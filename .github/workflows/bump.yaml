@@ -25,12 +25,12 @@ jobs:
         with:
           node-version: '16'
       - name: Install dependencies
-        run: npm install --force
+        run: npm install
       - name: Setup Git
         run: |
           git config user.name 'Cartesian Bot'
           git config user.email 'bot@cartesianui.com'
-      - name: bump version
+      - name: Bump version & tag commit
         run: npm version ${{ github.event.inputs.version }}
 
       - name: Push latest version
