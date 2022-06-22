@@ -27,9 +27,4 @@ Build and publish steps
    
  - Delete *.min files in root
  - Delete axis.js
- - Run `npm run build-and-publish`
-
-In case of error try below commands separately
- - Run `gulp concat`
- - Run `gulp build`
- - Run `npm publish`
+ - Run `npm run build-publish`
