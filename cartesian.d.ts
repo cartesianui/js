@@ -1,4 +1,4 @@
-﻿declare namespace axis {
+﻿declare namespace cartesian {
   let appPath: string;
 
   let pageLoadTime: Date;
@@ -62,7 +62,7 @@
 
     let values: { [key: string]: string };
 
-    let axisWeb: (key: string) => string;
+    let web: (key: string) => string;
 
     function localize(key: string, sourceName: string): string;
 
@@ -325,7 +325,7 @@
 
     /**
      * Sets a cookie value for given key.
-     * This is a simple implementation created to be used by Axis.
+     * This is a simple implementation created to be used by Cartesian.
      * Please use a complete cookie library if you need.
      * @param {string} key
      * @param {string} value
@@ -341,7 +341,7 @@
 
     /**
      * Gets a cookie with given key.
-     * This is a simple implementation created to be used by Axis.
+     * This is a simple implementation created to be used by Cartesian.
      * Please use a complete cookie library if you need.
      * @param {string} key
      * @returns {string} Cookie value or null
@@ -350,7 +350,7 @@
 
     /**
      * Deletes cookie for given key.
-     * This is a simple implementation created to be used by Axis.
+     * This is a simple implementation created to be used by Cartesian.
      * Please use a complete cookie library if you need.
      * @param {string} key
      * @param {string} path (optional)

@@ -1,10 +1,10 @@
 {
   "name": "@cartesianui/js",
-  "version": "1.0.0",
-  "description": "Serves as x-axis for CartesianUI project.",
+  "version": "2.0.0",
+  "description": "Provide Cartesian Js Object",
   "license": "MIT",
-  "main": "axis.js",
-  "types": "axis.d.ts",
+  "main": "cartesian.js",
+  "types": "cartesian.d.ts",
   "keywords": [
     "js axis",
     "npm",

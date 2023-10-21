@@ -1,10 +1,10 @@
-var axis = axis || {};
+var cartesian = cartesian || {};
 (function() {
   if (!FreezeUI || !UnFreezeUI) {
     return;
   }
 
-  axis.ui.setBusy = function(elm, text, delay) {
+  cartesian.ui.setBusy = function(elm, text, delay) {
     FreezeUI({
       element: elm,
       text: text ? text : " ",
@@ -12,7 +12,7 @@ var axis = axis || {};
     });
   };
 
-  axis.ui.clearBusy = function(elm, delay) {
+  cartesian.ui.clearBusy = function(elm, delay) {
     UnFreezeUI({ element: elm, delay: delay });
   };
 })();

@@ -1,6 +1,6 @@
-var axis = axis || {};
+var cartesian = cartesian || {};
 (function () {
-  axis.event = (function () {
+  cartesian.event = (function () {
     var _callbacks = {};
 
     var on = function (eventName, callback) {

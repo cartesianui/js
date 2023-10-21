@@ -1,4 +1,4 @@
-﻿var axis = axis || {};
+﻿var cartesian = cartesian || {};
 (function () {
   if (!moment || !moment.tz) {
     return;
@@ -6,15 +6,15 @@
 
   /* DEFAULTS *************************************************/
 
-  axis.timing = axis.timing || {};
+  cartesian.timing = cartesian.timing || {};
 
   /* FUNCTIONS **************************************************/
 
-  axis.timing.convertToUserTimezone = function (date) {
+  cartesian.timing.convertToUserTimezone = function (date) {
     var momentDate = moment(date);
     var targetDate = momentDate
       .clone()
-      .tz(axis.timing.timeZoneInfo.iana.timeZoneId);
+      .tz(cartesian.timing.timeZoneInfo.iana.timeZoneId);
     return targetDate;
   };
 })();

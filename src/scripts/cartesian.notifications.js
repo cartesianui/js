@@ -1,10 +1,10 @@
-var axis = axis || {};
+var cartesian = cartesian || {};
 (function (define) {
   define(["jquery"], function ($) {
     // Notification - Defines Notification API, not implements it
-    axis.notifications = axis.notifications || {};
+    cartesian.notifications = cartesian.notifications || {};
 
-    axis.notifications.severity = {
+    cartesian.notifications.severity = {
       INFO: 0,
       SUCCESS: 1,
       WARN: 2,
@@ -12,47 +12,47 @@ var axis = axis || {};
       FATAL: 4,
     };
 
-    axis.notifications.userNotificationState = {
+    cartesian.notifications.userNotificationState = {
       UNREAD: 0,
       READ: 1,
     };
 
-    axis.notifications.getUserNotificationStateAsString = function (
+    cartesian.notifications.getUserNotificationStateAsString = function (
       userNotificationState
     ) {
       switch (userNotificationState) {
-        case axis.notifications.userNotificationState.READ:
+        case cartesian.notifications.userNotificationState.READ:
           return "READ";
-        case axis.notifications.userNotificationState.UNREAD:
+        case cartesian.notifications.userNotificationState.UNREAD:
           return "UNREAD";
         default:
-          axis.log.warn(
+          cartesian.log.warn(
             "Unknown user notification state value: " + userNotificationState
           );
           return "?";
       }
     };
 
-    axis.notifications.getUiNotifyFuncBySeverity = function (severity) {
+    cartesian.notifications.getUiNotifyFuncBySeverity = function (severity) {
       switch (severity) {
-        case axis.notifications.severity.SUCCESS:
-          return axis.notify.success;
-        case axis.notifications.severity.WARN:
-          return axis.notify.warn;
-        case axis.notifications.severity.ERROR:
-          return axis.notify.error;
-        case axis.notifications.severity.FATAL:
-          return axis.notify.error;
-        case axis.notifications.severity.INFO:
+        case cartesian.notifications.severity.SUCCESS:
+          return cartesian.notify.success;
+        case cartesian.notifications.severity.WARN:
+          return cartesian.notify.warn;
+        case cartesian.notifications.severity.ERROR:
+          return cartesian.notify.error;
+        case cartesian.notifications.severity.FATAL:
+          return cartesian.notify.error;
+        case cartesian.notifications.severity.INFO:
         default:
-          return axis.notify.info;
+          return cartesian.notify.info;
       }
     };
 
-    axis.notifications.messageFormatters = {};
+    cartesian.notifications.messageFormatters = {};
 
-    axis.notifications.messageFormatters[
-      "Axis.Notifications.MessageNotificationData"
+    cartesian.notifications.messageFormatters[
+      "Cartesian.Notifications.MessageNotificationData"
     ] = function (userNotification) {
       return (
         userNotification.notification.data.message ||
@@ -60,13 +60,13 @@ var axis = axis || {};
       );
     };
 
-    axis.notifications.messageFormatters[
-      "Axis.Notifications.LocalizableMessageNotificationData"
+    cartesian.notifications.messageFormatters[
+      "Cartesian.Notifications.LocalizableMessageNotificationData"
     ] = function (userNotification) {
       var message =
         userNotification.notification.data.message ||
         userNotification.notification.data.properties.Message;
-      var localizedMessage = axis.localization.localize(
+      var localizedMessage = cartesian.localization.localize(
         message.name,
         message.sourceName
       );
@@ -97,23 +97,23 @@ var axis = axis || {};
       return localizedMessage;
     };
 
-    axis.notifications.getFormattedMessageFromUserNotification = function (
+    cartesian.notifications.getFormattedMessageFromUserNotification = function (
       userNotification
     ) {
       var formatter =
-        axis.notifications.messageFormatters[
+        cartesian.notifications.messageFormatters[
           userNotification.notification.data.type
         ];
       if (!formatter) {
-        axis.log.warn(
+        cartesian.log.warn(
           "No message formatter defined for given data type: " +
             userNotification.notification.data.type
         );
         return "?";
       }
 
-      if (!axis.utils.isFunction(formatter)) {
-        axis.log.warn(
+      if (!cartesian.utils.isFunction(formatter)) {
+        cartesian.log.warn(
           "Message formatter should be a function! It is invalid for data type: " +
             userNotification.notification.data.type
         );
@@ -123,39 +123,39 @@ var axis = axis || {};
       return formatter(userNotification);
     };
 
-    axis.notifications.showUiNotifyForUserNotification = function (
+    cartesian.notifications.showUiNotifyForUserNotification = function (
       userNotification,
       options
     ) {
-      var message = axis.notifications.getFormattedMessageFromUserNotification(
+      var message = cartesian.notifications.getFormattedMessageFromUserNotification(
         userNotification
       );
-      var uiNotifyFunc = axis.notifications.getUiNotifyFuncBySeverity(
+      var uiNotifyFunc = cartesian.notifications.getUiNotifyFuncBySeverity(
         userNotification.notification.severity
       );
       uiNotifyFunc(message, undefined, options);
     };
 
     // Notify - Defines Notification API, not implements it
-    axis.notify = axis.notify || {};
+    cartesian.notify = cartesian.notify || {};
 
-    axis.notify.success = function (message, title, options) {
-      axis.log.warn("axis.notify.success is not implemented!");
+    cartesian.notify.success = function (message, title, options) {
+      cartesian.log.warn("cartesian.notify.success is not implemented!");
     };
 
-    axis.notify.info = function (message, title, options) {
-      axis.log.warn("axis.notify.info is not implemented!");
+    cartesian.notify.info = function (message, title, options) {
+      cartesian.log.warn("cartesian.notify.info is not implemented!");
     };
 
-    axis.notify.warn = function (message, title, options) {
-      axis.log.warn("axis.notify.warn is not implemented!");
+    cartesian.notify.warn = function (message, title, options) {
+      cartesian.log.warn("cartesian.notify.warn is not implemented!");
     };
 
-    axis.notify.error = function (message, title, options) {
-      axis.log.warn("axis.notify.error is not implemented!");
+    cartesian.notify.error = function (message, title, options) {
+      cartesian.log.warn("cartesian.notify.error is not implemented!");
     };
 
-    return axis;
+    return cartesian;
   });
 })(
   typeof define === "function" && define.amd
@@ -164,7 +164,7 @@ var axis = axis || {};
         if (typeof module !== "undefined" && module.exports) {
           module.exports = factory(require("jquery"));
         } else {
-          window.axis = factory(window.jQuery);
+          window.cartesian = factory(window.jQuery);
         }
       }
 );
