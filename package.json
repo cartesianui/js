@@ -15,7 +15,7 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-and-publish": "gulp build && npm publish"
+    "build-publish": "gulp concat & gulp build && npm publish --access public"
   },
   "author": "Syed Ali Murtaza Kazmi <ali@kazmi.me>",
   "contributors": [
