@@ -1,4 +1,4 @@
-var axis = axis || {};
+var cartesian = cartesian || {};
 (function () {
   if (!Swal) {
     return;
@@ -15,7 +15,7 @@ var axis = axis || {};
     options.title = title;
     options.icon = type;
     options.confirmButtonText =
-      options.confirmButtonText || axis.localization.axisWeb("Ok");
+      options.confirmButtonText || cartesian.localization.web("Ok");
 
     if (isHtml) {
       options.html = message;
@@ -26,23 +26,23 @@ var axis = axis || {};
     return Swal.fire(options);
   };
 
-  axis.message.info = function(message, title, isHtml, options) {
+  cartesian.message.info = function(message, title, isHtml, options) {
     return showMessage("info", message, title, isHtml, options);
   };
 
-  axis.message.success = function(message, title, isHtml, options) {
+  cartesian.message.success = function(message, title, isHtml, options) {
     return showMessage("success", message, title, isHtml, options);
   };
 
-  axis.message.warn = function(message, title, isHtml, options) {
+  cartesian.message.warn = function(message, title, isHtml, options) {
     return showMessage("warning", message, title, isHtml, options);
   };
 
-  axis.message.error = function(message, title, isHtml, options) {
+  cartesian.message.error = function(message, title, isHtml, options) {
     return showMessage("error", message, title, isHtml, options);
   };
 
-  axis.message.confirm = function(
+  cartesian.message.confirm = function(
     message,
     titleOrCallback,
     callback,
@@ -58,13 +58,13 @@ var axis = axis || {};
     }
 
     options = options || {};
-    options.title = title ? title : axis.localization.axisWeb("AreYouSure");
+    options.title = title ? title : cartesian.localization.web("AreYouSure");
     options.icon = "warning";
 
     options.confirmButtonText =
-      options.confirmButtonText || axis.localization.axisWeb("Yes");
+      options.confirmButtonText || cartesian.localization.web("Yes");
     options.cancelButtonText =
-      options.cancelButtonText || axis.localization.axisWeb("Cancel");
+      options.cancelButtonText || cartesian.localization.web("Cancel");
     options.showCancelButton = true;
 
     if (isHtml) {

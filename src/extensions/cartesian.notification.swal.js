@@ -1,4 +1,4 @@
-var axis = axis || {};
+var cartesian = cartesian || {};
 (function () {
     if (!Swal) {
         return;
@@ -41,7 +41,7 @@ var axis = axis || {};
         Toast.fire(options);
     };
 
-    axis.notify.success = function (message, title, options) {
+    cartesian.notify.success = function (message, title, options) {
         showNotification(
             "success",
             message,
@@ -58,7 +58,7 @@ var axis = axis || {};
         );
     };
 
-    axis.notify.info = function (message, title, options) {
+    cartesian.notify.info = function (message, title, options) {
         showNotification(
             "info",
             message,
@@ -75,7 +75,7 @@ var axis = axis || {};
         );
     };
 
-    axis.notify.warn = function (message, title, options) {
+    cartesian.notify.warn = function (message, title, options) {
         showNotification(
             "warning",
             message,
@@ -92,7 +92,7 @@ var axis = axis || {};
         );
     };
 
-    axis.notify.error = function (message, title, options) {
+    cartesian.notify.error = function (message, title, options) {
         showNotification(
             "error",
             message,

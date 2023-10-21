@@ -1,8 +1,8 @@
-var axis = axis || {};
+var cartesian = cartesian || {};
 (function () {
-  axis.timing = axis.timing || {};
+  cartesian.timing = cartesian.timing || {};
 
-  axis.timing.utcClockProvider = (function () {
+  cartesian.timing.utcClockProvider = (function () {
     var toUtc = function (date) {
       return Date.UTC(
         date.getUTCFullYear(),
@@ -36,7 +36,7 @@ var axis = axis || {};
     };
   })();
 
-  axis.timing.localClockProvider = (function () {
+  cartesian.timing.localClockProvider = (function () {
     var toLocal = function (date) {
       return new Date(
         date.getFullYear(),
@@ -69,7 +69,7 @@ var axis = axis || {};
     };
   })();
 
-  axis.timing.unspecifiedClockProvider = (function () {
+  cartesian.timing.unspecifiedClockProvider = (function () {
     var now = function () {
       return new Date();
     };
@@ -86,12 +86,12 @@ var axis = axis || {};
     };
   })();
 
-  axis.timing.convertToUserTimezone = function (date) {
+  cartesian.timing.convertToUserTimezone = function (date) {
     var localTime = date.getTime();
     var utcTime = localTime + date.getTimezoneOffset() * 60000;
     var targetTime =
       parseInt(utcTime) +
-      parseInt(axis.timing.timeZoneInfo.server.currentUtcOffsetInMilliseconds);
+      parseInt(cartesian.timing.timeZoneInfo.server.currentUtcOffsetInMilliseconds);
     return new Date(targetTime);
   };
 })();

@@ -2,6 +2,6 @@ src/extensions
 src/scripts
 gulpfile.js
 package-lock.json
-axis.js
+cartesian.js
 .idea
 .github

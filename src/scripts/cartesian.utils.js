@@ -1,15 +1,15 @@
-var axis = axis || {};
+var cartesian = cartesian || {};
 (function (define) {
   define(["jquery"], function ($) {
-    axis.utils = axis.utils || {};
+    cartesian.utils = cartesian.utils || {};
 
     /* Creates a name namespace.
      *  Example:
-     *  var taskService = axis.utils.createNamespace(axis, 'services.task');
-     *  taskService will be equal to axis.services.task
+     *  var taskService = cartesian.utils.createNamespace(cartesian, 'services.task');
+     *  taskService will be equal to cartesian.services.task
      *  first argument (root) must be defined first
      ************************************************************/
-    axis.utils.createNamespace = function (root, ns) {
+    cartesian.utils.createNamespace = function (root, ns) {
       var parts = ns.split(".");
       for (var i = 0; i < parts.length; i++) {
         if (typeof root[parts[i]] == "undefined") {
@@ -25,18 +25,18 @@ var axis = axis || {};
     /* Find and replaces a string (search) to another string (replacement) in
      *  given string (str).
      *  Example:
-     *  axis.utils.replaceAll('This is a test string', 'is', 'X') = 'ThX X a test string'
+     *  cartesian.utils.replaceAll('This is a test string', 'is', 'X') = 'ThX X a test string'
      ************************************************************/
-    axis.utils.replaceAll = function (str, search, replacement) {
+    cartesian.utils.replaceAll = function (str, search, replacement) {
       var fix = search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
       return str.replace(new RegExp(fix, "g"), replacement);
     };
 
     /* Formats a string just like string.format in C#.
      *  Example:
-     *  axis.utils.formatString('Hello {0}','Tuana') = 'Hello Tuana'
+     *  cartesian.utils.formatString('Hello {0}','Tuana') = 'Hello Tuana'
      ************************************************************/
-    axis.utils.formatString = function () {
+    cartesian.utils.formatString = function () {
       if (arguments.length < 1) {
         return null;
       }
@@ -45,13 +45,13 @@ var axis = axis || {};
 
       for (var i = 1; i < arguments.length; i++) {
         var placeHolder = "{" + (i - 1) + "}";
-        str = axis.utils.replaceAll(str, placeHolder, arguments[i]);
+        str = cartesian.utils.replaceAll(str, placeHolder, arguments[i]);
       }
 
       return str;
     };
 
-    axis.utils.toPascalCase = function (str) {
+    cartesian.utils.toPascalCase = function (str) {
       if (!str || !str.length) {
         return str;
       }
@@ -63,7 +63,7 @@ var axis = axis || {};
       return str.charAt(0).toUpperCase() + str.substr(1);
     };
 
-    axis.utils.toCamelCase = function (str) {
+    cartesian.utils.toCamelCase = function (str) {
       if (!str || !str.length) {
         return str;
       }
@@ -75,7 +75,7 @@ var axis = axis || {};
       return str.charAt(0).toLowerCase() + str.substr(1);
     };
 
-    axis.utils.truncateString = function (str, maxLength) {
+    cartesian.utils.truncateString = function (str, maxLength) {
       if (!str || !str.length || str.length <= maxLength) {
         return str;
       }
@@ -83,7 +83,7 @@ var axis = axis || {};
       return str.substr(0, maxLength);
     };
 
-    axis.utils.truncateStringWithPostfix = function (str, maxLength, postfix) {
+    cartesian.utils.truncateStringWithPostfix = function (str, maxLength, postfix) {
       postfix = postfix || "...";
 
       if (!str || !str.length || str.length <= maxLength) {
@@ -97,7 +97,7 @@ var axis = axis || {};
       return str.substr(0, maxLength - postfix.length) + postfix;
     };
 
-    axis.utils.isFunction = function (obj) {
+    cartesian.utils.isFunction = function (obj) {
       if ($) {
         //Prefer to use jQuery if possible
         return $.isFunction(obj);
@@ -112,7 +112,7 @@ var axis = axis || {};
      * where name is query string parameter name and value is it's value.
      * includeQuestionMark is true by default.
      */
-    axis.utils.buildQueryString = function (
+    cartesian.utils.buildQueryString = function (
       parameterInfos,
       includeQuestionMark
     ) {
@@ -184,14 +184,14 @@ var axis = axis || {};
 
     /**
      * Sets a cookie value for given key.
-     * This is a simple implementation created to be used by ABP.
+     * This is a simple implementation created to be used by Cartesian.
      * Please use a complete cookie library if you need.
      * @param {string} key
      * @param {string} value
      * @param {Date} expireDate (optional). If not specified the cookie will expire at the end of session.
      * @param {string} path (optional)
      */
-    axis.utils.setCookieValue = function (
+    cartesian.utils.setCookieValue = function (
       key,
       value,
       expireDate,
@@ -221,12 +221,12 @@ var axis = axis || {};
 
     /**
      * Gets a cookie with given key.
-     * This is a simple implementation created to be used by ABP.
+     * This is a simple implementation created to be used by Cartesian.
      * Please use a complete cookie library if you need.
      * @param {string} key
      * @returns {string} Cookie value or null
      */
-    axis.utils.getCookieValue = function (key) {
+    cartesian.utils.getCookieValue = function (key) {
       var equalities = document.cookie.split("; ");
       for (var i = 0; i < equalities.length; i++) {
         if (!equalities[i]) {
@@ -248,12 +248,12 @@ var axis = axis || {};
 
     /**
      * Deletes cookie for given key.
-     * This is a simple implementation created to be used by ABP.
+     * This is a simple implementation created to be used by Cartesian.
      * Please use a complete cookie library if you need.
      * @param {string} key
      * @param {string} path (optional)
      */
-    axis.utils.deleteCookie = function (key, path) {
+    cartesian.utils.deleteCookie = function (key, path) {
       var cookieValue = encodeURIComponent(key) + "=";
 
       cookieValue =
@@ -273,13 +273,13 @@ var axis = axis || {};
      * @param {string} url
      * @returns {string}
      */
-    axis.utils.getDomain = function (url) {
+    cartesian.utils.getDomain = function (url) {
       var domainRegex = /(https?:){0,1}\/\/((?:[\w\d-]+\.)+[\w\d]{2,})/i;
       var matches = domainRegex.exec(url);
       return matches && matches[2] ? matches[2] : "";
     };
 
-    return axis;
+    return cartesian;
   });
 })(
   typeof define === "function" && define.amd
@@ -288,7 +288,7 @@ var axis = axis || {};
         if (typeof module !== "undefined" && module.exports) {
           module.exports = factory(require("jquery"));
         } else {
-          window.axis = factory(window.jQuery);
+          window.cartesian = factory(window.jQuery);
         }
       }
 );

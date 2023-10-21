@@ -1,6 +1,6 @@
 ### @cartesianui/js
 
-##### _Serves as x-axis for CartesianUI_
+##### _Serves as x-cartesian for CartesianUI_
  
  This package includes below modules.
 
@@ -26,7 +26,7 @@ Build and publish steps
  - Update package version
    
  - Delete *.min files in root
- - Delete axis.js
+ - Delete cartesian.js
  - Run `npm run build-and-publish`
 
 In case of error try below commands separately
