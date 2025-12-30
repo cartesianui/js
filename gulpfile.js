@@ -20,8 +20,8 @@ gulp.task("print", (done) => {
 
 gulp.task("concat", concatTask);
 
-function concatTask(done) {
-  gulp
+function concatTask() {
+  return gulp
     .src("src/scripts/*.js")
     .pipe(jshint())
     .pipe(
@@ -52,22 +52,18 @@ function concatTask(done) {
     )
     .pipe(concat("cartesian.js"))
     .pipe(gulp.dest("./"));
-
-  if (done) done();
 }
 
 gulp.task("compress", compressTask);
 
-function compressTask(done) {
-  gulp
+function compressTask() {
+  return gulp
     .src([
       "./cartesian.js",
       "./src/libs/freeze-ui/freeze-ui.js",
       "./src/extensions/*.js",
-    ])
+    ], { allowEmpty: true })
     .pipe(uglify())
     .pipe(rename({ suffix: ".min" }))
     .pipe(gulp.dest("."));
-
-  if (done) done();
 }

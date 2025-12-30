@@ -7,6 +7,8 @@ var cartesian = cartesian || {};
 
   cartesian.auth.grantedPermissions = cartesian.auth.grantedPermissions || {};
 
+  cartesian.auth.assignedRoles = cartesian.auth.assignedRoles || [];
+
   //Deprecated. Use cartesian.auth.isGranted instead.
   cartesian.auth.hasPermission = function (permissionName) {
     return cartesian.auth.isGranted.apply(this, arguments);
@@ -50,6 +52,41 @@ var cartesian = cartesian || {};
 
     for (var i = 0; i < arguments.length; i++) {
       if (!cartesian.auth.isGranted(arguments[i])) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
+  cartesian.auth.hasRole = function (roleName) {
+    if (!roleName) {
+      return false;
+    }
+    return cartesian.auth.assignedRoles.indexOf(roleName) !== -1;
+  };
+
+  cartesian.auth.hasAnyRole = function () {
+    if (!arguments || arguments.length <= 0) {
+      return true;
+    }
+
+    for (var i = 0; i < arguments.length; i++) {
+      if (cartesian.auth.hasRole(arguments[i])) {
+        return true;
+      }
+    }
+
+    return false;
+  };
+
+  cartesian.auth.hasAllRoles = function () {
+    if (!arguments || arguments.length <= 0) {
+      return true;
+    }
+
+    for (var i = 0; i < arguments.length; i++) {
+      if (!cartesian.auth.hasRole(arguments[i])) {
         return false;
       }
     }
