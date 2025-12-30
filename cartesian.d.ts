@@ -76,11 +76,34 @@
 
     let grantedPermissions: { [name: string]: boolean };
 
+    let assignedRoles: string[];
+
     function isGranted(permissionName: string): boolean;
 
     function isAnyGranted(...args: string[]): boolean;
 
     function areAllGranted(...args: string[]): boolean;
+
+    /**
+     * Check if the current user has a specific role
+     * @param roleName The role name to check
+     * @returns True if the user has the role, false otherwise
+     */
+    function hasRole(roleName: string): boolean;
+
+    /**
+     * Check if the current user has any of the specified roles
+     * @param roleNames Role names to check
+     * @returns True if the user has at least one of the roles, false otherwise
+     */
+    function hasAnyRole(...roleNames: string[]): boolean;
+
+    /**
+     * Check if the current user has all of the specified roles
+     * @param roleNames Role names to check
+     * @returns True if the user has all of the roles, false otherwise
+     */
+    function hasAllRoles(...roleNames: string[]): boolean;
 
     let tokenCookieName: string;
 

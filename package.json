@@ -1,6 +1,6 @@
 {
   "name": "@cartesianui/js",
-  "version": "2.0.0",
+  "version": "2.1.1",
   "description": "Provide Cartesian Js Object",
   "license": "MIT",
   "main": "cartesian.js",
@@ -15,6 +15,7 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build-only": "gulp concat & gulp build",
     "build-publish": "gulp concat & gulp build && npm publish --access public"
   },
   "author": "Syed Ali Murtaza Kazmi <ali@kazmi.me>",
