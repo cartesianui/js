@@ -6,7 +6,11 @@ var cartesian = cartesian || {};
   cartesian.tenancy.headerAttribute = 'Cartesian-Host';
   cartesian.tenancy.ignoreFeatureCheckForHostUsers = false;
 
-  cartesian.tenancy.sides = {
+  // Numeric codes for the active tenancy context. Mirrors the backend's
+  // `tenancy.context` config block (Cartesian/Tenancy/Configs/tenancy.php)
+  // emitted on the default-bundle response. `cartesian.session.context`
+  // is set to one of these values on app boot.
+  cartesian.tenancy.context = {
     TENANT: 1,
     HOST: 2,
   };

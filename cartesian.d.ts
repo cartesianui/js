@@ -6,7 +6,12 @@
   function toAbsAppPath(path: string): string;
 
   namespace tenancy {
-    enum sides {
+    /**
+     * Numeric codes for the active tenancy context. Mirrors the backend's
+     * `tenancy.context` config block. `cartesian.session.context` holds
+     * one of these values.
+     */
+    enum context {
       TENANT = 1,
       HOST = 2,
     }
@@ -24,15 +29,36 @@
 
   interface ISession {
 
-    readonly userId?: number;
+    /** Authenticated user id. Populated by UserConfigurationProcessor::preServe (`user_id`). */
+    readonly userId?: string;
 
-    readonly tenantId?: number;
+    /** Current tenant id. Populated by TenantConfigurationProcessor::preServe (`tenant_id`). */
+    readonly tenantId?: string;
 
-    readonly impersonatorUserId?: number;
+    /** Current domain id. Populated by DomainConfigurationProcessor::preServe (`domain_id`). */
+    readonly domainId?: string;
 
-    readonly impersonatorTenantId?: number;
+    /** True when running inside the host tenant context. */
+    readonly isHost?: boolean;
 
-    readonly tenancySide: tenancy.sides;
+    /** True when the authenticated user has the admin role. */
+    readonly isAdmin?: boolean;
+
+    /**
+     * Numeric tenancy context code (1=TENANT, 2=HOST). Mirrors the
+     * backend `session.context` field. See `cartesian.tenancy.context`.
+     */
+    readonly context?: tenancy.context;
+
+    readonly impersonatorUserId?: string;
+
+    readonly impersonatorTenantId?: string;
+
+    isHostAdmin(): boolean;
+    isTenantAdmin(): boolean;
+    isUserLogged(): boolean;
+    isHostSide(): boolean;
+    isTenantSide(): boolean;
 
   }
 
@@ -298,6 +324,26 @@
   }
 
   namespace ui {
+    interface ILoaderConfig {
+      type?: 'css' | 'image' | 'icon';
+      cssClass?: string;
+      image?: string | null;
+      /** Icon-font class string (e.g. `'fa fa-circle-notch fa-spin fa-3x'`). Used when `type='icon'`. */
+      icon?: string | null;
+      text?: string;
+      showText?: boolean;
+      backdrop?: 'blur' | 'opacity' | 'none';
+      backdropColor?: string;
+    }
+
+    interface IConfig {
+      loader?: ILoaderConfig;
+    }
+
+    let config: IConfig;
+
+    function configure(options: IConfig): void;
+
     function block(elm?: any): void;
 
     function unblock(elm?: any): void;

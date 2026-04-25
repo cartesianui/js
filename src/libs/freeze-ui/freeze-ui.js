@@ -1,42 +1,102 @@
-// taken from https://raw.githubusercontent.com/alexradulescu/FreezeUI and modified
+// Based on https://github.com/alexradulescu/FreezeUI — heavily modified
 (function () {
-  var freezeHtml = document.createElement("div");
-  freezeHtml.classList.add("freeze-ui");
+  var freezedItems = [];
 
-  freezedItems = [];
+  var getSelector = function (selector) {
+    return selector ? selector : 'body';
+  };
 
-  getSelector = function(selector) {
-    return selector ? selector : "body";
-  }
-
-  normalizeFreezeDelay = function(delay) {
+  var normalizeFreezeDelay = function (delay) {
     return delay ? delay : 250;
-  }
+  };
 
-  shouldFreezeItem = function (selector) {
-    itemSelector = getSelector(selector);
+  var shouldFreezeItem = function (selector) {
+    var itemSelector = getSelector(selector);
     return freezedItems.indexOf(itemSelector) >= 0;
   };
 
-  addFreezedItem = function(selector) {
-    itemSelector = getSelector(selector);
+  var addFreezedItem = function (selector) {
+    var itemSelector = getSelector(selector);
     freezedItems.push(itemSelector);
   };
 
-  removeFreezedItem = function(selector) {
-    itemSelector = getSelector(selector);
-    for (i = 0; i < freezedItems.length; i++) {
+  var removeFreezedItem = function (selector) {
+    var itemSelector = getSelector(selector);
+    for (var i = 0; i < freezedItems.length; i++) {
       if (freezedItems[i] === itemSelector) {
         freezedItems.splice(i, 1);
       }
     }
   };
 
-  window.FreezeUI = function(options) {
-    addFreezedItem(options.selector);
-    delay = normalizeFreezeDelay(options.delay);
+  /**
+   * Build the freeze overlay element based on options.
+   */
+  var buildFreezeElement = function (options) {
+    var el = document.createElement('div');
+    el.classList.add('freeze-ui');
 
-    setTimeout(function(){
+    // Backdrop style
+    var backdrop = options.backdrop || 'blur';
+    el.classList.add('freeze-backdrop-' + backdrop);
+
+    if (options.backdropColor) {
+      el.style.backgroundColor = options.backdropColor;
+    }
+
+    // Content wrapper
+    var content = document.createElement('div');
+    content.classList.add('freeze-content');
+
+    // Loader: image | icon | css (default)
+    var loaderType = options.loaderType || 'css';
+    var loaderEl;
+
+    if (loaderType === 'image' && options.loaderImage) {
+      loaderEl = document.createElement('img');
+      loaderEl.classList.add('freeze-loader-image');
+      loaderEl.src = options.loaderImage;
+      loaderEl.alt = 'Loading';
+    } else if (loaderType === 'icon' && options.loaderIcon) {
+      // Icon loader — caller passes any icon-font class string
+      // (e.g. 'fa fa-circle-notch fa-spin fa-3x'). The class itself
+      // controls visuals; we just provide the wrapper.
+      loaderEl = document.createElement('div');
+      loaderEl.classList.add('freeze-loader-icon');
+      var iconEl = document.createElement('i');
+      var classes = String(options.loaderIcon).trim().split(/\s+/);
+      for (var i = 0; i < classes.length; i++) {
+        if (classes[i]) iconEl.classList.add(classes[i]);
+      }
+      loaderEl.appendChild(iconEl);
+    } else {
+      loaderEl = document.createElement('div');
+      loaderEl.classList.add('freeze-loader');
+      loaderEl.classList.add(options.loaderCssClass || 'loader-spin');
+    }
+
+    content.appendChild(loaderEl);
+
+    // Text
+    var showText = options.showText !== undefined ? options.showText : true;
+    if (showText && options.text && options.text.trim()) {
+      var textEl = document.createElement('div');
+      textEl.classList.add('freeze-text');
+      textEl.textContent = options.text;
+      content.appendChild(textEl);
+    }
+
+    el.appendChild(content);
+
+    return el;
+  };
+
+  window.FreezeUI = function (options) {
+    options = options || {};
+    addFreezedItem(options.selector);
+    var delay = normalizeFreezeDelay(options.delay);
+
+    setTimeout(function () {
       if (!shouldFreezeItem(options.selector)) {
         return;
       }
@@ -48,33 +108,37 @@
         parent = document.querySelector(options.selector) || document.body;
       }
 
-      freezeHtml.setAttribute("data-text", options.text || "Loading");
+      var freezeEl = buildFreezeElement(options);
 
       if (document.querySelector(options.selector) || options.element) {
-        freezeHtml.style.position = "absolute";
+        freezeEl.style.position = 'absolute';
       }
 
-      parent.appendChild(freezeHtml);
+      parent.style.position = parent.style.position || 'relative';
+      parent.appendChild(freezeEl);
     }, delay);
   };
 
-  window.UnFreezeUI = function(options) {
+  window.UnFreezeUI = function (options) {
+    options = options || {};
     removeFreezedItem(options.selector);
-    delay = normalizeFreezeDelay(options.delay) + 250;
+    var delay = normalizeFreezeDelay(options.delay) + 250;
 
-    setTimeout(function() {
-      var freezeHtml;
+    setTimeout(function () {
+      var freezeEl;
       if (options.element) {
-        freezeHtml = options.element.querySelector(".freeze-ui");
+        freezeEl = options.element.querySelector('.freeze-ui');
       } else {
-        freezeHtml = document.querySelector(".freeze-ui");
+        freezeEl = document.querySelector('.freeze-ui');
       }
 
-      if (freezeHtml) {
-        freezeHtml.classList.remove("is-unfreezing");
-        if (freezeHtml.parentElement) {
-          freezeHtml.parentElement.removeChild(freezeHtml);
-        }
+      if (freezeEl) {
+        freezeEl.classList.add('is-unfreezing');
+        setTimeout(function () {
+          if (freezeEl.parentElement) {
+            freezeEl.parentElement.removeChild(freezeEl);
+          }
+        }, 300);
       }
     }, delay);
   };
