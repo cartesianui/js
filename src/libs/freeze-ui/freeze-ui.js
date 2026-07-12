@@ -1,32 +1,43 @@
 // Based on https://github.com/alexradulescu/FreezeUI — heavily modified
 (function () {
-  var freezedItems = [];
-
-  var getSelector = function (selector) {
-    return selector ? selector : 'body';
-  };
+  // Each freeze tracks the PARENT node it targets (not a selector string), so
+  // a global (body) freeze and an element-scoped (e.g. datatable) freeze are
+  // distinct even though neither passes a selector. `cancelled` lets an
+  // UnFreezeUI that fires during the show-delay abort the pending overlay.
+  var freezes = [];
 
   var normalizeFreezeDelay = function (delay) {
     return delay ? delay : 250;
   };
 
-  var shouldFreezeItem = function (selector) {
-    var itemSelector = getSelector(selector);
-    return freezedItems.indexOf(itemSelector) >= 0;
+  // Resolve the node a freeze targets — IDENTICALLY in FreezeUI + UnFreezeUI so
+  // an overlay is always removed from the same node it was added to.
+  var resolveParent = function (options) {
+    if (options.element) {
+      return options.element;
+    }
+    if (options.selector) {
+      return document.querySelector(options.selector) || document.body;
+    }
+    return document.body;
   };
 
-  var addFreezedItem = function (selector) {
-    var itemSelector = getSelector(selector);
-    freezedItems.push(itemSelector);
-  };
-
-  var removeFreezedItem = function (selector) {
-    var itemSelector = getSelector(selector);
-    for (var i = 0; i < freezedItems.length; i++) {
-      if (freezedItems[i] === itemSelector) {
-        freezedItems.splice(i, 1);
+  // This parent's OWN overlay — a DIRECT child only. Crucially NOT a descendant:
+  // a body-level clear must not rip out a nested (datatable) overlay, and vice
+  // versa. Using `document.querySelector('.freeze-ui')` (first match anywhere)
+  // was the stuck-loader bug — it removed whichever overlay came first in
+  // document order, orphaning the other so it never got cleared.
+  var ownOverlay = function (parent) {
+    if (!parent || !parent.children) {
+      return null;
+    }
+    for (var i = 0; i < parent.children.length; i++) {
+      var child = parent.children[i];
+      if (child.classList && child.classList.contains('freeze-ui')) {
+        return child;
       }
     }
+    return null;
   };
 
   /**
@@ -93,44 +104,53 @@
 
   window.FreezeUI = function (options) {
     options = options || {};
-    addFreezedItem(options.selector);
+    var parent = resolveParent(options);
+    var entry = { parent: parent, cancelled: false };
+    freezes.push(entry);
     var delay = normalizeFreezeDelay(options.delay);
 
     setTimeout(function () {
-      if (!shouldFreezeItem(options.selector)) {
+      // Cleared during the delay → don't show at all.
+      if (entry.cancelled) {
         return;
       }
-
-      var parent;
-      if (options.element) {
-        parent = options.element;
-      } else {
-        parent = document.querySelector(options.selector) || document.body;
+      // Already showing for this exact parent → don't stack a 2nd overlay.
+      if (ownOverlay(parent)) {
+        return;
       }
 
       var freezeEl = buildFreezeElement(options);
 
-      if (document.querySelector(options.selector) || options.element) {
+      // body → full-screen (CSS handles fixed positioning). Any other node →
+      // absolute within that (relatively-positioned) node.
+      if (parent !== document.body) {
         freezeEl.style.position = 'absolute';
+        parent.style.position = parent.style.position || 'relative';
       }
 
-      parent.style.position = parent.style.position || 'relative';
       parent.appendChild(freezeEl);
     }, delay);
   };
 
   window.UnFreezeUI = function (options) {
     options = options || {};
-    removeFreezedItem(options.selector);
+    var parent = resolveParent(options);
+
+    // Cancel the most recent still-pending freeze for THIS parent (so a clear
+    // that arrives before the show-delay elapses aborts that overlay).
+    for (var i = freezes.length - 1; i >= 0; i--) {
+      if (freezes[i].parent === parent && !freezes[i].cancelled) {
+        freezes[i].cancelled = true;
+        freezes.splice(i, 1);
+        break;
+      }
+    }
+
     var delay = normalizeFreezeDelay(options.delay) + 250;
 
     setTimeout(function () {
-      var freezeEl;
-      if (options.element) {
-        freezeEl = options.element.querySelector('.freeze-ui');
-      } else {
-        freezeEl = document.querySelector('.freeze-ui');
-      }
+      // Only ever remove THIS parent's own overlay — never another node's.
+      var freezeEl = ownOverlay(parent);
 
       if (freezeEl) {
         freezeEl.classList.add('is-unfreezing');

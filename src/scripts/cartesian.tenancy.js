@@ -3,7 +3,11 @@ var cartesian = cartesian || {};
   cartesian.tenancy = cartesian.tenancy || {};
 
   cartesian.tenancy.isEnabled = false;
-  cartesian.tenancy.headerAttribute = 'Cartesian-Host';
+  // Pre-boot fallback only — the BE default-bundle overrides this with
+  // `tenancy.header_attribute` on app boot (BE is the single source of truth).
+  // Kept in sync with the BE default so the very first (tenant-identifying)
+  // request uses the right header before the bundle loads.
+  cartesian.tenancy.headerAttribute = 'X-Cartesian-Host';
   cartesian.tenancy.ignoreFeatureCheckForHostUsers = false;
 
   // Numeric codes for the active tenancy context. Mirrors the backend's

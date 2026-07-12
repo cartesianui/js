@@ -1,4 +1,49 @@
-﻿declare namespace cartesian {
+﻿/**
+ * `cartesian` is the runtime global merged at app boot via
+ * `_.merge(cartesian, GET /v1/configurations)` (see
+ * `app-initializer.service.ts` in each app).
+ *
+ * Per-section subtrees (e.g. `cartesian.shopifier`, `cartesian.ehr`) are NOT
+ * declared in this canonical file — sections OWN their subtree types and
+ * surface them via TypeScript declaration merging from their own libs. See
+ * e.g. `projects/shopifier/core/src/lib/cartesian-shopifier.d.ts`.
+ *
+ * The pattern from a section lib:
+ *
+ *   // projects/<section>/core/src/lib/cartesian-<section>.d.ts
+ *   declare global {
+ *     namespace cartesian.<section> {
+ *       let someKey: string | undefined;
+ *       let someFlag: boolean | undefined;
+ *     }
+ *   }
+ *   export {};
+ *
+ * Typing is intentionally GENERIC (primitive types only). Enum-typed
+ * schema keys land as `string | undefined`, booleans as `boolean | undefined`.
+ * Do NOT redeclare BE-owned literal unions (e.g. `'manual' | 'fefo'`) —
+ * the BE Configs file (`app/Containers/<Section>/.../Configs/<file>.php`)
+ * is the single source of truth for option lists. The trade-off is loss
+ * of TS exhaustiveness on `switch` over a strategy value; that is
+ * deliberate.
+ *
+ * Future evolution: a build-time generator can read the BE Configs files
+ * and emit narrowed types either back into this canonical file or into a
+ * generated `.d.ts` per section. Until that generator ships, augments
+ * use primitive types only.
+ *
+ * Why typed-but-optional (`| undefined`): the BE public-bundle endpoint
+ * does NOT currently read-through schema defaults — a tenant that has
+ * never saved any section config will have `cartesian.<section>`
+ * undefined entirely (the `_.merge` simply didn't write that subtree).
+ * Consumers should use optional chaining + a default:
+ *
+ *   const strategy = cartesian.shopifier?.posBatchStrategy ?? 'manual';
+ *
+ * Sections without an augment file still WORK at runtime; consumers
+ * just cast `(cartesian as any).newSection` at the read site.
+ */
+declare namespace cartesian {
   let appPath: string;
 
   let pageLoadTime: Date;
@@ -63,6 +108,61 @@
   }
 
   let session: ISession;
+
+  /**
+   * Canonical ISO 4217 code in which all `decimal` amounts are persisted
+   * across the installation. Set once at install via env
+   * (`CARTESIAN_STORAGE_CURRENCY`) and never changes — re-denominating
+   * existing stored amounts is out of scope of the localization workstream.
+   *
+   * Distinct from `cartesian.regional.currency` (per-tenant DISPLAY
+   * currency only — same number, different symbol).
+   */
+  let storageCurrency: string;
+
+  interface IDateFormat {
+    /** Compact form for listing columns, badges. e.g. `'dd/MM/yyyy'`. */
+    short?: string;
+    /** Form inputs, detail views. e.g. `'dd MMM yyyy'`. */
+    medium?: string;
+    /** Headers, reports, formal documents. e.g. `'EEEE, dd MMMM yyyy'`. */
+    long?: string;
+  }
+
+  interface IRegionalInfo {
+    /** IANA time-zone identifier, e.g. `'Asia/Karachi'`. */
+    timeZone?: string;
+
+    /** BCP 47 locale tag, e.g. `'en-PK'`. Drives Intl.NumberFormat / Intl.DateTimeFormat. */
+    locale?: string;
+
+    /** Date-format patterns for short / medium / long display. */
+    dateFormat?: IDateFormat;
+
+    /**
+     * Display-only currency code (ISO 4217). DOES NOT alter stored amounts
+     * or perform FX conversion. Storage currency lives at top-level
+     * `cartesian.storageCurrency` and is install-wide.
+     *
+     * Tenant-only at config layer (user-scope cannot override — see
+     * localization workstream D2).
+     */
+    currency?: string;
+  }
+
+  /**
+   * Resolved formatting / locale / timezone preferences for the current
+   * session. Populated by the `regional` schema section in tenant + user
+   * scopes (user overrides tenant where applicable; currency is tenant-only).
+   * BE serves the merged tree under the top-level `regional` key in
+   * `/v1/configurations`; FE app-initializer's snake→camel converter lands
+   * it as `cartesian.regional.*`.
+   *
+   * Consumers should prefer `RegionalService` for read access — gives
+   * sensible fallbacks when the bundle hasn't loaded yet (early app boot,
+   * unauth contexts).
+   */
+  let regional: IRegionalInfo;
 
   namespace localization {
     interface ILanguageInfo {
@@ -319,6 +419,7 @@
       message: string,
       title?: string,
       callback?: (result: boolean) => void,
+      isHtml?: boolean,
       options?: any
     ): any;
   }
@@ -425,51 +526,6 @@
      * @param {string} path (optional)
      */
     function deleteCookie(key: string, path?: string): void;
-  }
-
-  namespace timing {
-    interface IClockProvider {
-      supportsMultipleTimezone: boolean;
-
-      now(): Date;
-
-      normalize(date: Date): Date;
-    }
-
-    interface ITimeZoneInfo {
-
-      // TODO: Get rid of this, we need to replace this,
-      //  as this return data from API from windows machine
-      server: {
-        timeZoneId: string;
-        baseUtcOffsetInMilliseconds: number;
-        currentUtcOffsetInMilliseconds: number;
-        isDaylightSavingTimeNow: boolean;
-      };
-
-      // We need to use below, and return IANA based timeZoneId
-      iana: {
-        timeZoneId: string;
-      };
-    }
-
-    const utcClockProvider: IClockProvider;
-
-    const localClockProvider: IClockProvider;
-
-    const unspecifiedClockProvider: IClockProvider;
-
-    function convertToUserTimezone(date: Date): Date;
-
-    let timeZoneInfo: ITimeZoneInfo;
-  }
-
-  namespace clock {
-    let provider: timing.IClockProvider;
-
-    function now(): Date;
-
-    function normalize(date: Date): Date;
   }
 
   namespace security {
