@@ -43,8 +43,6 @@ function concatTask() {
           "src/scripts/cartesian.ui.js",
           "src/scripts/cartesian.event.js",
           "src/scripts/cartesian.utils.js",
-          "src/scripts/cartesian.timing.js",
-          "src/scripts/cartesian.clock.js",
           "src/scripts/cartesian.security.js",
         ],
         { base: "./" }

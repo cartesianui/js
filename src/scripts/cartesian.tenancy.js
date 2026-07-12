@@ -3,10 +3,18 @@ var cartesian = cartesian || {};
   cartesian.tenancy = cartesian.tenancy || {};
 
   cartesian.tenancy.isEnabled = false;
-  cartesian.tenancy.headerAttribute = 'Cartesian-Host';
+  // Pre-boot fallback only — the BE default-bundle overrides this with
+  // `tenancy.header_attribute` on app boot (BE is the single source of truth).
+  // Kept in sync with the BE default so the very first (tenant-identifying)
+  // request uses the right header before the bundle loads.
+  cartesian.tenancy.headerAttribute = 'X-Cartesian-Host';
   cartesian.tenancy.ignoreFeatureCheckForHostUsers = false;
 
-  cartesian.tenancy.sides = {
+  // Numeric codes for the active tenancy context. Mirrors the backend's
+  // `tenancy.context` config block (Cartesian/Tenancy/Configs/tenancy.php)
+  // emitted on the default-bundle response. `cartesian.session.context`
+  // is set to one of these values on app boot.
+  cartesian.tenancy.context = {
     TENANT: 1,
     HOST: 2,
   };
