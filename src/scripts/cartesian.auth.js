@@ -111,7 +111,13 @@ var cartesian = cartesian || {};
   };
 
   cartesian.auth.clearToken = function () {
-    cartesian.auth.setToken();
+    // `setToken()` with no args writes an EMPTY value but, per
+    // `setCookieValue` below, only adds `expires=` `if (expireDate)` — with
+    // none passed, the cookie just gets blanked, never actually removed
+    // (some checks look at cookie PRESENCE, not its value, and stay
+    // "logged in"). An explicit past date is what makes the browser
+    // actually delete it.
+    cartesian.auth.setToken("", new Date(0));
   };
 
   cartesian.auth.refreshTokenCookieName = "Cartesian.AuthRefreshToken";
@@ -131,6 +137,8 @@ var cartesian = cartesian || {};
   };
 
   cartesian.auth.clearRefreshToken = function () {
-    cartesian.auth.setRefreshToken();
+    // Same reasoning as clearToken() above — a past expiry is required to
+    // actually delete the cookie, not just blank its value.
+    cartesian.auth.setRefreshToken("", new Date(0));
   };
 })();
